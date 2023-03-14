@@ -37,31 +37,31 @@ public class SuperheltController {
     }
     @GetMapping(path = "/superpower/count")
     public ResponseEntity<List<SuperheltKraftTæller>> getSuperheltKraftTæller(){
-        List<SuperheltKraftTæller> superheltKraftTællers = superheltRepository.getSuperheltKraftTæller();
+        List<SuperheltKraftTæller> superheltKraftTællers = superheltRepository.getSuperheltKraftTællerAlle();
         return new ResponseEntity<>(superheltKraftTællers, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/superpower/count/{name}")
+    @GetMapping(path = "/superpower/count/{navn}")
     public ResponseEntity<List<SuperheltKraftTæller>> getSuperheltKraftTæller(@PathVariable String navn){
-        List<SuperheltKraftTæller> superheltKraftTællers = superheltRepository.getSuperheltKraftTæller(navn);
+        List<SuperheltKraftTæller> superheltKraftTællers = superheltRepository.getSuperheltKræftTæller(navn);
         return new ResponseEntity<>(superheltKraftTællers, HttpStatus.OK);
     }
 
     @GetMapping(path = "/superpower")
     public ResponseEntity<List<SuperheltKraft>> getSuperheltKraftAlt(){
-        List<SuperheltKraft> superheltKrafter = superheltRepository.getSuperheltKraft();
+        List<SuperheltKraft> superheltKrafter = superheltRepository.getSuperheltKraftAlt();
         return new ResponseEntity<>(superheltKrafter, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/superpower/{name}")
+    @GetMapping(path = "/superpower/{navn}")
     public ResponseEntity<List<SuperheltKraft>> getSuperheltKraft(@PathVariable String navn){
         List<SuperheltKraft> superheltKrafter = superheltRepository.getSuperheltKraft(navn);
         return new ResponseEntity<>(superheltKrafter, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/city")
-    public ResponseEntity<List<SuperheltBy>> getSuperheltBy(){
-        List<Superheltby> cities = superheltRepository.getSuperheltBy();
+    @GetMapping(path = "/by")
+    public ResponseEntity<List<Superheltby>> getSuperheltBy(){
+        List<Superheltby> byer = superheltRepository.getSuperheltby();
         return new ResponseEntity<>(byer, HttpStatus.OK);
     }
 

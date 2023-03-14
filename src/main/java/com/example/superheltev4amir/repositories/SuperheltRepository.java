@@ -55,14 +55,14 @@ public class SuperheltRepository implements ISuperheltRepository {
                 throw new RuntimeException(e);
             }
         }
-    public List<SuperheltKraftTæller> getSuperheltKraftTæller() {
+    public List<SuperheltKraftTæller> getSuperheltKraftTællerAlle() {
         List<SuperheltKraftTæller> superheroes = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(db_url, uid, pwd))
         {
             String SQL = """
-                SELECT Superhero.heroName, Superhero.realName, COUNT(Superheropower.superpowerID) AS numPowers
+                SELECT Superhero.heroName, Superhero.realName, COUNT(Superhero_Superpower.superpowerID) AS numPowers
                 FROM Superhero
-                JOIN Superheropower ON Superhero.superheroID = Superheropower.superheroID
+                JOIN Superhero_Superpower ON Superhero.superheroID = Superhero_Superpower.superheroID
                 GROUP BY Superhero.heroName, Superhero.realName;
                 """;
             Statement stnt = con.createStatement();
@@ -83,7 +83,7 @@ public class SuperheltRepository implements ISuperheltRepository {
         List<SuperheltKraftTæller> superheroes = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(db_url, uid, pwd))
         {
-            String SQL = "SELECT Superhero.heroName, Superhero.realName, COUNT(Superheropower.superpowerID) AS numPowers FROM Superhero JOIN Superheropower ON Superhero.superheroID = Superheropower.superheroID WHERE Superhero.heroName = ? GROUP BY Superhero.heroName, Superhero.realName;";
+            String SQL = "SELECT Superhero.heroName, Superhero.realName, COUNT(Superhero_Superpower.superpowerID) AS numPowers FROM Superhero JOIN Superhero_Superpower ON Superhero.superheroID = Superhero_Superpower.superheroID WHERE Superhero.heroName = ? GROUP BY Superhero.heroName, Superhero.realName;";
             PreparedStatement pstmt = con.prepareStatement(SQL);
             pstmt.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
@@ -106,8 +106,8 @@ public class SuperheltRepository implements ISuperheltRepository {
             String SQL = """
                 SELECT Superhero.heroName, Superhero.realName, GROUP_CONCAT(Superpower.superpowerName) AS superpowers
                 FROM Superhero
-                LEFT JOIN Superheropower ON Superhero.superheroID = Superheropower.superheroID
-                LEFT JOIN Superpower ON Superheropower.superpowerID = Superpower.superpowerID
+                LEFT JOIN Superhero_Superpower ON Superhero.superheroID = Superhero_Superpower.superheroID
+                LEFT JOIN Superpower ON Superhero_Superpower.superpowerID = Superpower.superpowerID
                 GROUP BY Superhero.heroName, Superhero.realName;
                 """;
             Statement stnt = con.createStatement();
@@ -131,8 +131,8 @@ public class SuperheltRepository implements ISuperheltRepository {
             String SQL = """
                 SELECT Superhero.heroName, Superhero.realName, GROUP_CONCAT(Superpower.superpowerName) AS superpowers
                 FROM Superhero
-                LEFT JOIN Superheropower ON Superhero.superheroID = Superheropower.superheroID
-                LEFT JOIN Superpower ON Superheropower.superpowerID = Superpower.superpowerID
+                LEFT JOIN Superhero_Superpower ON Superhero.superheroID = Superhero_Superpower.superheroID
+                LEFT JOIN Superpower ON Superhero_Superpower.superpowerID = Superpower.superpowerID
                 WHERE Superhero.heroName = ?
                 GROUP BY Superhero.heroName, Superhero.realName;
             """;
@@ -158,8 +158,8 @@ public class SuperheltRepository implements ISuperheltRepository {
             String SQL = """
                 SELECT City.cityName, GROUP_CONCAT(Superhero.heroName) AS superheroes
                 FROM City
-                JOIN Superherocity ON City.cityID = Superherocity.cityID
-                JOIN Superhero ON Superherocity.superheroID = Superhero.superheroID
+                JOIN City_Superhero ON City.cityID = City_Superhero.cityID
+                JOIN Superhero ON City_Superhero.superheroID = Superhero.superheroID
                 GROUP BY City.cityName;
                 """;
             Statement stnt = con.createStatement();

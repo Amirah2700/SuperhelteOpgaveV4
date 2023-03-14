@@ -17,11 +17,14 @@ public interface ISuperheltRepository {
         return null;
     }
 
-    default List<SuperheltKraftTæller> getSuperheltKraftTæller(String navn) {
+    default List<SuperheltKraftTæller> getSuperheltKræftTæller(String navn) {
+        return null;
+    }
+    default List<SuperheltKraftTæller> getSuperheltKraftTællerAlle() {
         return null;
     }
 
-    default List<SuperheltKraft> getSuperheltKraft() {
+    default List<SuperheltKraft> getSuperheltKraftAlt() {
         return null;
     }
 
@@ -29,7 +32,7 @@ public interface ISuperheltRepository {
         return null;
     }
 
-    default List<Superheltby> getSuperheltBy() {
+    default List<Superheltby> getSuperheltby() {
         return null;
     }
 }
