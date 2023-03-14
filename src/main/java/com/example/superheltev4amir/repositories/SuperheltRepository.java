@@ -4,11 +4,13 @@ import com.example.superheltev4amir.dto.SuperheltKraft;
 import com.example.superheltev4amir.dto.SuperheltKraftTæller;
 import com.example.superheltev4amir.dto.Superheltby;
 import com.example.superheltev4amir.model.Superhelt;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository("superhelt_db")
 public class SuperheltRepository implements ISuperheltRepository {
 
     private final String db_url = "jdbc:mysql://localhost:3306/superheroes";
